@@ -1,4 +1,4 @@
-import { Product } from '../types';
+import type { Product } from '../types';
 import './ProductCard.css';
 
 // Phase 1: Hardcoded product for demonstration
