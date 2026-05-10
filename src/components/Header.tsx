@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import './Header.css';
 
-// Phase 2: Props - Header accepts storeName and cartCount from parent
+// Phase 5: React Router - <Link> replaces <a> to prevent full page reload
 interface HeaderProps {
   storeName: string;
   cartCount: number;
@@ -10,14 +11,16 @@ function Header({ storeName, cartCount }: HeaderProps) {
   return (
     <header className="header">
       <div className="header-content">
-        <h1 className="store-name">{storeName}</h1>
+        <Link to="/" className="store-name-link">
+          <h1 className="store-name">{storeName}</h1>
+        </Link>
         <nav className="nav">
-          <a href="/" className="nav-link">Home</a>
-          <a href="/cart" className="nav-link">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/cart" className="nav-link">
             Cart
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-          </a>
-          <a href="/login" className="nav-link">Login</a>
+          </Link>
+          <Link to="/login" className="nav-link">Login</Link>
         </nav>
       </div>
     </header>

@@ -13,6 +13,10 @@
   align-items: center;
 }
 
+.store-name-link {
+  text-decoration: none;
+}
+
 .store-name {
   font-size: 1.5rem;
   font-weight: bold;

@@ -14,6 +14,15 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.product-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-link:hover .product-title {
+  color: #3498db;
+}
+
 .product-image {
   width: 100%;
   height: 200px;
