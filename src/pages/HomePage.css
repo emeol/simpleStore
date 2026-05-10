@@ -12,3 +12,25 @@
 .no-products p {
   margin: 0;
 }
+
+.error-container {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #ffe6e6;
+  border-radius: 8px;
+  margin: 2rem;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.error-detail {
+  color: #c0392b;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
