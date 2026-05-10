@@ -1,13 +1,17 @@
 import type { Product } from '../types';
 import './ProductCard.css';
 
-// Phase 1: Hardcoded product for demonstration
-// In Phase 2, this will accept a product prop
+// Phase 2: Props - callback function passed from parent
 interface ProductCardProps {
   product: Product;
+  onAddToCart: (product: Product) => void;
 }
 
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product, onAddToCart }: ProductCardProps) {
+  const handleClick = () => {
+    onAddToCart(product);
+  };
+
   return (
     <div className="product-card">
       <img src={product.image} alt={product.title} className="product-image" />
@@ -16,7 +20,7 @@ function ProductCard({ product }: ProductCardProps) {
         {product.description.substring(0, 100)}...
       </p>
       <p className="product-price">£{product.price.toFixed(2)}</p>
-      <button className="add-to-cart-btn">Add to Cart</button>
+      <button className="add-to-cart-btn" onClick={handleClick}>Add to Cart</button>
     </div>
   );
 }
