@@ -1,5 +1,23 @@
 ### Pre-coding: Mockup & Component Hierarchy
 
+Best practices:
+
+Planning for a React application
+Sketch pages
+Identify List components
+List data
+Decide state
+Map actions
+Build core flow
+Test the journey
+
+Before building each component, ask:
+
+What does it display?
+What props does it need?
+Does it need state?
+What happens when the user clicks or types?
+
 Before writing code, sketch the UI and draw boxes around every component:
 
 ```
