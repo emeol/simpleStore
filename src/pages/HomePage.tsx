@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { Product } from '../types';
 import useFetch from '../hooks/useFetch';
+import { fetchCategories, fetchProducts } from '../services/productService';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
 import ProductList from '../components/ProductList';
@@ -18,14 +19,14 @@ function HomePage({ onAddToCart }: HomePageProps) {
     data: products,
     loading: productsLoading,
     error: productsError
-  } = useFetch<Product[]>('https://fakestoreapi.com/products');
+  } = useFetch<Product[]>(fetchProducts);
 
   // Fetch categories from API using custom hook
   const {
     data: categoryList,
     loading: categoriesLoading,
     error: categoriesError
-  } = useFetch<string[]>('https://fakestoreapi.com/products/categories');
+  } = useFetch<string[]>(fetchCategories);
 
   // Local state for search and category filters
   const [searchTerm, setSearchTerm] = useState('');

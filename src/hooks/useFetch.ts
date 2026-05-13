@@ -8,7 +8,9 @@ interface UseFetchResult<T> {
   error: string | null;
 }
 
-function useFetch<T>(url: string): UseFetchResult<T> {
+type FetchSource<T> = string | (() => Promise<T>);
+
+function useFetch<T>(source: FetchSource<T>): UseFetchResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,14 +23,20 @@ function useFetch<T>(url: string): UseFetchResult<T> {
       try {
         setLoading(true);
         setError(null);
-        
-        const response = await fetch(url, { signal: controller.signal });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
+
+        const result =
+          typeof source === 'string'
+            ? await (async () => {
+                const response = await fetch(source, { signal: controller.signal });
+
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return response.json() as Promise<T>;
+              })()
+            : await source();
+
         setData(result);
       } catch (err) {
         // Ignore abort errors (normal cleanup)
@@ -44,7 +52,7 @@ function useFetch<T>(url: string): UseFetchResult<T> {
 
     // Cleanup function: abort the fetch if component unmounts
     return () => controller.abort();
-  }, [url]); // Re-run effect if URL changes
+  }, [source]); // Re-run effect if source changes
 
   return { data, loading, error };
 }

@@ -1,6 +1,8 @@
+import { useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import type { Product } from '../types';
 import useFetch from '../hooks/useFetch';
+import { fetchProductById } from '../services/productService';
 import LoadingSpinner from '../components/LoadingSpinner';
 import './ProductDetailPage.css';
 
@@ -16,9 +18,17 @@ function ProductDetailPage({ onAddToCart }: ProductDetailPageProps) {
   // useNavigate returns a function to redirect programmatically
   const navigate = useNavigate();
 
-  const { data: product, loading, error } = useFetch<Product>(
-    `https://fakestoreapi.com/products/${id}`
-  );
+  const productId = Number(id);
+
+  const productFetcher = useCallback(() => {
+    if (!Number.isInteger(productId) || productId <= 0) {
+      return Promise.reject(new Error('Invalid product ID'));
+    }
+
+    return fetchProductById(productId);
+  }, [productId]);
+
+  const { data: product, loading, error } = useFetch<Product>(productFetcher);
 
   const handleAddToCart = () => {
     if (product) {
